@@ -1,0 +1,21 @@
+{
+  "name": "vhs-hookhub-github-nomos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.0.1",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "slack-message-builder": "^1.2.1",
+    "typeof-github-event": "^1.0.0",
+    "x-hub-signature": "^1.2.0"
+  }
+}
