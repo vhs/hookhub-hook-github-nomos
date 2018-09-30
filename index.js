@@ -77,7 +77,7 @@ var generateMessage = function (event_type, payload) {
       });
       break;
     default:
-      slack_message = slack_message.text("We received a new " + event_type + " notification for " + payload.repository.name + ",\r\r" + "but we didn't know what to do with this event!");
+      slack_message = slack_message.text("We received a new '" + event_type + "' notification for '" + payload.repository.name + "', but we didn't know what to do with this event!");
       break;
   }
 
