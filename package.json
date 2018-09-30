@@ -15,7 +15,6 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "slack-message-builder": "^1.2.1",
-    "typeof-github-event": "^1.0.0",
     "x-hub-signature": "^1.2.0"
   }
 }

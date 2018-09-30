@@ -6,7 +6,6 @@ var express = require('express');
 var router = express.Router();
 var config = require('./config');
 const xHubSignatureMiddleware = require('x-hub-signature').middleware;
-var GHevents = require('typeof-github-event');
 const smb = require('slack-message-builder');
 var rp = require('request-promise');
 
@@ -24,7 +23,7 @@ router.use(xHubSignatureMiddleware({
 router.use('/', function (req, res, next) {
   debug("Handling default request");
 
-  let post_body = generateMessage(req.body);
+  let post_body = generateMessage(req.header('X-GitHub-Event'),req.body);
 
   debug("post_body:", post_body);
 
@@ -52,9 +51,7 @@ router.use('/', function (req, res, next) {
 
 module.exports = router;
 
-var generateMessage = function (payload) {
-  var event_type = GHevents.typeof(payload);
-
+var generateMessage = function (event_type, payload) {
   var slack_message = smb()
     .username(config.slack.options.username)
     .iconEmoji(config.slack.options.icon_emoji)
