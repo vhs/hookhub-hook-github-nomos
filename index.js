@@ -11,16 +11,16 @@ const smb = require('slack-message-builder');
 var rp = require('request-promise');
 
 // Check X-Hub-Signature
-// router.use(xHubSignatureMiddleware({
-//   algorithm: 'sha1',
-//   secret: config.github.secret,
-//   require: true,
-//   getRawBody: function (req) {
-//     return req.rawBody;
-//   }
-// }));
+router.use(xHubSignatureMiddleware({
+  algorithm: 'sha1',
+  secret: config.github.secret,
+  require: true,
+  getRawBody: function (req) {
+    return req.rawBody;
+  }
+}));
 
-/* GET home page. */
+/* Default handler. */
 router.use('/', function (req, res, next) {
   debug("Handling default request");
 
@@ -48,7 +48,6 @@ router.use('/', function (req, res, next) {
   }).then(function (result_set) {
     res.send(result_set);
   });
-
 });
 
 module.exports = router;
@@ -81,10 +80,9 @@ var generateMessage = function (payload) {
       });
       break;
     default:
-      slack_message = slack_message.text("We received a new " + event_type + " notification for " + payload.repository.name + ":\r\r" + "Uh oh! We didn't know what to do with this event!")
+      slack_message = slack_message.text("We received a new " + event_type + " notification for " + payload.repository.name + ",\r\r" + "but we didn't know what to do with this event!");
       break;
   }
 
   return slack_message.json();
-
 };
