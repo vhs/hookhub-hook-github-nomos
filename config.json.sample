@@ -1,0 +1,13 @@
+{
+    "github": {
+        "secret" : "SOMESECRET"
+    },
+    "slack": {
+        "url": "https://hooks.slack.com/services/PRIVATE/WEBHOOK/URL",
+        "options": {
+            "username": "HookHub",
+            "icon_emoji": ":robot_face:",
+            "channel": "#bot-testing"
+        }
+    }
+}
