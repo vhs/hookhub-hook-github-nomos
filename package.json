@@ -1,20 +1,27 @@
 {
-  "name": "vhs-hookhub-github-nomos",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "debug": "^4.0.1",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "slack-message-builder": "^1.2.1",
-    "x-hub-signature": "^1.2.0"
-  }
+    "name": "vhs-hookhub-github-nomos",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "debug": "^4.3.7",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "slack-message-builder": "^1.2.1",
+        "x-hub-signature": "^2.1.2",
+        "x-hub-signature-middleware": "^1.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-plugin-import": "^2.30.0",
+        "eslint-plugin-n": "^16.6.2",
+        "eslint-plugin-promise": "^6.6.0"
+    }
 }
