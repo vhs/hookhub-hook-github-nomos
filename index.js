@@ -101,7 +101,7 @@ const generateMessage = function (event_type, payload) {
         case 'issues':
             switch (payload.action) {
                 case 'closed':
-                    slack_message
+                    slack_message = slack_message
                         .text(
                             `Issue ${payload.issue.number} - ${payload.issue.title} was closed by ${payload.issue.user.login}\r\r`
                         )
@@ -125,7 +125,7 @@ const generateMessage = function (event_type, payload) {
                         .end()
                     break
                 default:
-                    slack_message
+                    slack_message = slack_message
                         .text(
                             `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
                         )
@@ -149,6 +149,7 @@ const generateMessage = function (event_type, payload) {
                         .end()
                     break
             }
+            break
         default:
             debug(`Handling unknown event`)
             slack_message = slack_message.text(
@@ -158,6 +159,7 @@ const generateMessage = function (event_type, payload) {
                     payload.repository.name +
                     "', but we didn't know what to do with this event!"
             )
+            break
     }
 
     debug(`Returning JSON payload`)
