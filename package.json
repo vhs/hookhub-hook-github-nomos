@@ -17,11 +17,9 @@
         "x-hub-signature-middleware": "^1.0.0"
     },
     "devDependencies": {
-        "eslint": "^8.57.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-config-standard": "^17.1.0",
-        "eslint-plugin-import": "^2.30.0",
-        "eslint-plugin-n": "^16.6.2",
-        "eslint-plugin-promise": "^6.6.0"
+        "@tyisi/config-eslint": "^4.0.0",
+        "@tyisi/config-prettier": "^1.0.1",
+        "eslint": "^9.17.0",
+        "prettier": "^3.4.2"
     }
 }

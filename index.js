@@ -75,7 +75,11 @@ const generateMessage = function (event_type, payload) {
     if (event_type === 'push') {
         payload.commits.forEach(function (commit) {
             slack_message = slack_message
-                .text("The following commit(s) got pushed to '" + payload.repository.name + "':\r\r")
+                .text(
+                    "The following commit(s) got pushed to '" +
+                        payload.repository.name +
+                        "':\r\r"
+                )
                 .attachment()
                 .fallback('Required plain-text summary of the attachment.')
                 .color('#0000cc')
