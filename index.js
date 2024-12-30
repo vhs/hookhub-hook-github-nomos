@@ -102,18 +102,17 @@ const generateMessage = function (event_type, payload) {
             switch (payload.action) {
                 case 'closed':
                     slack_message = slack_message
-                        .text(
-                            `Issue <a href=${payload.issue.html_url}">${payload.issue.number} - ${payload.issue.title}</a> was ${payload.action} by <a href="${payload.issue.user.html_url}">${payload.issue.user.login}</a>\r\r`
-                        )
                         .attachment()
                         .fallback(
-                            'Required plain-text summary of the attachment.'
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
                         )
                         .color('#0000cc')
                         .authorName(payload.issue.user.login)
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
-                        .title('Issue: ' + payload.issue.number)
+                        .title(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                        )
                         .titleLink(payload.issue.html_url)
                         .text('See issue for closing comment')
                         .footer('Via: vhs-hookhub-github-nomos')
@@ -126,18 +125,15 @@ const generateMessage = function (event_type, payload) {
                     break
                 default:
                     slack_message = slack_message
-                        .text(
-                            `Issue <a href=${payload.issue.html_url}">${payload.issue.number} - ${payload.issue.title}</a> was ${payload.action} by <a href="${payload.issue.user.html_url}">${payload.issue.user.login}</a>\r\r`
-                        )
                         .attachment()
                         .fallback(
-                            'Required plain-text summary of the attachment.'
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
                         )
                         .color('#0000cc')
                         .authorName(payload.issue.user.login)
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
-                        .title('Issue: ' + payload.issue.number)
+                        .title(`Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`r)
                         .titleLink(payload.issue.html_url)
                         .text('See issue for more info')
                         .footer('Via: vhs-hookhub-github-nomos')
