@@ -74,37 +74,90 @@ const generateMessage = function (event_type, payload) {
         .iconEmoji(config.slack.options.icon_emoji)
         .channel(config.slack.options.channel)
 
-    if (event_type === 'push') {
-        debug(`Handling push event`)
-        payload.commits.forEach(function (commit) {
-            slack_message = slack_message
-                .text(
-                    "The following commit(s) got pushed to '" +
-                        payload.repository.name +
-                        "':\r\r"
-                )
-                .attachment()
-                .fallback('Required plain-text summary of the attachment.')
-                .color('#0000cc')
-                .authorName(payload.sender.login)
-                .authorLink(payload.sender.html_url)
-                .authorIcon(payload.sender.avatar_url)
-                .title('Commit: ' + commit.id)
-                .titleLink(commit.url)
-                .text(commit.message)
-                .footer('Via: vhs-hookhub-github-nomos')
-                .ts(Math.round(Date.parse(commit.timestamp) / 1000))
-                .end()
-        })
-    } else {
-        debug(`Handling unknown event`)
-        slack_message = slack_message.text(
-            "We received a new '" +
-                event_type +
-                "' notification for '" +
-                payload.repository.name +
-                "', but we didn't know what to do with this event!"
-        )
+    switch (event_type) {
+        case 'push':
+            debug(`Handling push event`)
+            payload.commits.forEach(function (commit) {
+                slack_message = slack_message
+                    .text(
+                        "The following commit(s) got pushed to '" +
+                            payload.repository.name +
+                            "':\r\r"
+                    )
+                    .attachment()
+                    .fallback('Required plain-text summary of the attachment.')
+                    .color('#0000cc')
+                    .authorName(payload.sender.login)
+                    .authorLink(payload.sender.html_url)
+                    .authorIcon(payload.sender.avatar_url)
+                    .title('Commit: ' + commit.id)
+                    .titleLink(commit.url)
+                    .text(commit.message)
+                    .footer('Via: vhs-hookhub-github-nomos')
+                    .ts(Math.round(Date.parse(commit.timestamp) / 1000))
+                    .end()
+            })
+            break
+        case 'issues':
+            switch (payload.action) {
+                case 'closed':
+                    slack_message
+                        .text(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was closed by ${payload.issue.user.login}\r\r`
+                        )
+                        .attachment()
+                        .fallback(
+                            'Required plain-text summary of the attachment.'
+                        )
+                        .color('#0000cc')
+                        .authorName(payload.issue.user.login)
+                        .authorLink(payload.issue.user.html_url)
+                        .authorIcon(payload.issue.user.avatar_url)
+                        .title('Issue: ' + payload.issue.number)
+                        .titleLink(payload.issue.title)
+                        .text('See issue for closing comment')
+                        .footer('Via: vhs-hookhub-github-nomos')
+                        .ts(
+                            Math.round(
+                                Date.parse(payload.issue.closed_at) / 1000
+                            )
+                        )
+                        .end()
+                    break
+                default:
+                    slack_message
+                        .text(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                        )
+                        .attachment()
+                        .fallback(
+                            'Required plain-text summary of the attachment.'
+                        )
+                        .color('#0000cc')
+                        .authorName(payload.issue.user.login)
+                        .authorLink(payload.issue.user.html_url)
+                        .authorIcon(payload.issue.user.avatar_url)
+                        .title('Issue: ' + payload.issue.number)
+                        .titleLink(payload.issue.title)
+                        .text('See issue for more info')
+                        .footer('Via: vhs-hookhub-github-nomos')
+                        .ts(
+                            Math.round(
+                                Date.parse(payload.issue.closed_at) / 1000
+                            )
+                        )
+                        .end()
+                    break
+            }
+        default:
+            debug(`Handling unknown event`)
+            slack_message = slack_message.text(
+                "We received a new '" +
+                    event_type +
+                    "' notification for '" +
+                    payload.repository.name +
+                    "', but we didn't know what to do with this event!"
+            )
     }
 
     debug(`Returning JSON payload`)
