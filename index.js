@@ -103,7 +103,7 @@ const generateMessage = function (event_type, payload) {
                 case 'closed':
                     slack_message = slack_message
                         .text(
-                            `Issue ${payload.issue.number} - ${payload.issue.title} was closed by ${payload.issue.user.login}\r\r`
+                            `Issue <a href=${payload.issue.html_url}">${payload.issue.number} - ${payload.issue.title}</a> was ${payload.action} by <a href="${payload.issue.user.html_url}">${payload.issue.user.login}</a>\r\r`
                         )
                         .attachment()
                         .fallback(
@@ -114,7 +114,7 @@ const generateMessage = function (event_type, payload) {
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
                         .title('Issue: ' + payload.issue.number)
-                        .titleLink(payload.issue.url)
+                        .titleLink(payload.issue.html_url)
                         .text('See issue for closing comment')
                         .footer('Via: vhs-hookhub-github-nomos')
                         .ts(
@@ -127,7 +127,7 @@ const generateMessage = function (event_type, payload) {
                 default:
                     slack_message = slack_message
                         .text(
-                            `Issue <a href=${payload.issue.url}">${payload.issue.number} - ${payload.issue.title}</a> was ${payload.action} by <a href="${payload.issue.user.url}">${payload.issue.user.login}</a>\r\r`
+                            `Issue <a href=${payload.issue.html_url}">${payload.issue.number} - ${payload.issue.title}</a> was ${payload.action} by <a href="${payload.issue.user.html_url}">${payload.issue.user.login}</a>\r\r`
                         )
                         .attachment()
                         .fallback(
@@ -138,7 +138,7 @@ const generateMessage = function (event_type, payload) {
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
                         .title('Issue: ' + payload.issue.number)
-                        .titleLink(payload.issue.url)
+                        .titleLink(payload.issue.html_url)
                         .text('See issue for more info')
                         .footer('Via: vhs-hookhub-github-nomos')
                         .ts(
