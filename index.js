@@ -127,7 +127,7 @@ const generateMessage = function (event_type, payload) {
                 default:
                     slack_message = slack_message
                         .text(
-                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                            `Issue <a href=${payload.issue.url}">${payload.issue.number} - ${payload.issue.title}</a> was ${payload.action} by <a href="${payload.issue.user.url}">${payload.issue.user.login}</a>\r\r`
                         )
                         .attachment()
                         .fallback(
