@@ -114,7 +114,7 @@ const generateMessage = function (event_type, payload) {
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
                         .title('Issue: ' + payload.issue.number)
-                        .titleLink(payload.issue.title)
+                        .titleLink(payload.issue.url)
                         .text('See issue for closing comment')
                         .footer('Via: vhs-hookhub-github-nomos')
                         .ts(
@@ -138,7 +138,7 @@ const generateMessage = function (event_type, payload) {
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
                         .title('Issue: ' + payload.issue.number)
-                        .titleLink(payload.issue.title)
+                        .titleLink(payload.issue.url)
                         .text('See issue for more info')
                         .footer('Via: vhs-hookhub-github-nomos')
                         .ts(
