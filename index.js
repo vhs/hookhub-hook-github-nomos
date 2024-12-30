@@ -133,7 +133,9 @@ const generateMessage = function (event_type, payload) {
                         .authorName(payload.issue.user.login)
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
-                        .title(`Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`r)
+                        .title(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                        )
                         .titleLink(payload.issue.html_url)
                         .text('See issue for more info')
                         .footer('Via: vhs-hookhub-github-nomos')
