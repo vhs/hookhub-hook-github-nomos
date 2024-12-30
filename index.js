@@ -82,7 +82,7 @@ const generateMessage = function (event_type, payload) {
                     .text(
                         "The following commit(s) got pushed to '" +
                             payload.repository.name +
-                            "':\r\r"
+                            "':"
                     )
                     .attachment()
                     .fallback('Required plain-text summary of the attachment.')
@@ -98,20 +98,70 @@ const generateMessage = function (event_type, payload) {
                     .end()
             })
             break
-        case 'issues':
+        case 'issue_comment':
             switch (payload.action) {
-                case 'closed':
+                case 'created':
                     slack_message = slack_message
                         .attachment()
                         .fallback(
-                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                            `Issue ${payload.issue.number} - ${payload.issue.title} has a new comment by ${payload.issue.user.login}`
                         )
                         .color('#0000cc')
                         .authorName(payload.issue.user.login)
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
                         .title(
-                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                            `Issue ${payload.issue.number} - ${payload.issue.title} has a new comment by ${payload.issue.user.login}`
+                        )
+                        .titleLink(payload.issue.html_url)
+                        .text(payload.comment.body)
+                        .footer('Via: vhs-hookhub-github-nomos')
+                        .ts(
+                            Math.round(
+                                Date.parse(payload.issue.updated_at) / 1000
+                            )
+                        )
+                        .end()
+                    break
+                default:
+                    slack_message = slack_message
+                        .attachment()
+                        .fallback(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} has a comment ${payload.action} by ${payload.issue.user.login}`
+                        )
+                        .color('#0000cc')
+                        .authorName(payload.issue.user.login)
+                        .authorLink(payload.issue.user.html_url)
+                        .authorIcon(payload.issue.user.avatar_url)
+                        .title(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} has a comment ${payload.action} by ${payload.issue.user.login}`
+                        )
+                        .titleLink(payload.issue.html_url)
+                        .text(payload.comment.body)
+                        .footer('Via: vhs-hookhub-github-nomos')
+                        .ts(
+                            Math.round(
+                                Date.parse(payload.issue.closed_at) / 1000
+                            )
+                        )
+                        .end()
+                    break
+            }
+            break
+        case 'issues':
+            switch (payload.action) {
+                case 'closed':
+                    slack_message = slack_message
+                        .attachment()
+                        .fallback(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}`
+                        )
+                        .color('#0000cc')
+                        .authorName(payload.issue.user.login)
+                        .authorLink(payload.issue.user.html_url)
+                        .authorIcon(payload.issue.user.avatar_url)
+                        .title(
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}`
                         )
                         .titleLink(payload.issue.html_url)
                         .text('See issue for closing comment')
@@ -127,14 +177,14 @@ const generateMessage = function (event_type, payload) {
                     slack_message = slack_message
                         .attachment()
                         .fallback(
-                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}`
                         )
                         .color('#0000cc')
                         .authorName(payload.issue.user.login)
                         .authorLink(payload.issue.user.html_url)
                         .authorIcon(payload.issue.user.avatar_url)
                         .title(
-                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}\r\r`
+                            `Issue ${payload.issue.number} - ${payload.issue.title} was ${payload.action} by ${payload.issue.user.login}`
                         )
                         .titleLink(payload.issue.html_url)
                         .text('See issue for more info')
