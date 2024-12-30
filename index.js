@@ -67,12 +67,15 @@ router.use('/', async function (req, res, next) {
 module.exports = router
 
 const generateMessage = function (event_type, payload) {
+    debug(`Generating message for ${event_type}`)
+
     let slack_message = smb()
         .username(config.slack.options.username)
         .iconEmoji(config.slack.options.icon_emoji)
         .channel(config.slack.options.channel)
 
     if (event_type === 'push') {
+        debug(`Handling push event`)
         payload.commits.forEach(function (commit) {
             slack_message = slack_message
                 .text(
@@ -94,6 +97,7 @@ const generateMessage = function (event_type, payload) {
                 .end()
         })
     } else {
+        debug(`Handling unknown event`)
         slack_message = slack_message.text(
             "We received a new '" +
                 event_type +
@@ -103,5 +107,6 @@ const generateMessage = function (event_type, payload) {
         )
     }
 
+    debug(`Returning JSON payload`)
     return slack_message.json()
 }
